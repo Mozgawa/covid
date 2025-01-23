@@ -1,0 +1,55 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+- repo: https://github.com/zricethezav/gitleaks
+  rev: v8.2.0
+  hooks:
+  - id: gitleaks
+    args: [--log-level=warn, --report-path=.git/hooks/gitleaks.log]
+
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.1.0
+  hooks:
+  - id: check-json
+  - id: pretty-format-json
+    args: [--autofix, --no-sort-keys]
+  - id: check-yaml
+  - id: check-xml
+  - id: check-merge-conflict
+  - id: trailing-whitespace
+    args: [--markdown-linebreak-ext=md]
+  - id: no-commit-to-branch
+    args: [--branch, develop, --branch, master]
+  - id: requirements-txt-fixer
+  - id: check-ast
+
+- repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+  rev: v2.3.0
+  hooks:
+  - id: pretty-format-yaml
+    args: [--autofix, --indent, '2']
+
+- repo: https://github.com/sirosen/check-jsonschema
+  rev: 0.13.0
+  hooks:
+  - id: check-github-workflows
+  - id: check-github-actions
+  - id: check-azure-pipelines
+
+- repo: https://github.com/psf/black
+  rev: 23.3.0
+  hooks:
+  - id: black
+    args: [--line-length, '100', --diff, --check]
+    language_version: python3
+
+- repo: https://github.com/Lucas-C/pre-commit-hooks-bandit
+  rev: v1.0.5
+  hooks:
+  - id: python-bandit-vulnerability-check
+
+- repo: https://github.com/yunojuno/pre-commit-xenon
+  rev: cc59b0431a5d072786b59430e9b342b2881064f6
+  hooks:
+  - id: xenon
+    args: [--max-average=A, --max-modules=C, --max-absolute=C]
